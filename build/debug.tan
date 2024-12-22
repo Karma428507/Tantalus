@@ -1,0 +1,26 @@
+>if (_SYS_WIN_)
+    >extern GetStdHandle
+    >extern WriteFile
+>elif (_SYS_LINIX_)
+    >define STDOUT 1
+    >defsys PRINT(4, STDOUT, string, uint32)
+>ifend
+
+// Overloads the entry point (only one overload can exist)
+// >entry debug()
+
+// Entry point
+function uint_32 main(/*Add args here*/) {
+    printf("Hello world\n");
+    return 0;
+}
+
+function uint_32 debug() {
+    return 0;
+}
+
+function reload void printf(string message) {
+    >if (_SYS_LINIX_) {
+        PRINT(message, message.length);
+    }
+}
